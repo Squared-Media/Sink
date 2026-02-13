@@ -50,3 +50,17 @@ To improve query performance, we have limited the amount of data. If you need to
 ## 8. I don't want to count bot or crawler traffic
 
 Set `NUXT_DISABLE_BOT_ACCESS_LOG` to `true`.
+
+## 9. How can I sync my fork with upstream without losing `wrangler.jsonc` changes?
+
+If you customized `wrangler.jsonc` in your fork, stash that file first, sync from upstream, then restore it:
+
+```bash
+git checkout main
+git fetch upstream
+git stash push -- wrangler.jsonc
+git merge upstream/main
+git stash pop
+```
+
+If `wrangler.jsonc` has merge conflicts after `stash pop`, keep your fork-specific values (like `kv_namespaces.id`) and commit the resolved file.
